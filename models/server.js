@@ -27,9 +27,18 @@ class Server {
         //Desplegar el directorio público
         this.app.use(express.static(path.resolve(__dirname, '../', 'public')));
 
-        //CORS
-        this.app.use(cors());
+        //CORS 
+        this.app.use(cors({
+            orugin: function(origin, callback) {
 
+                if (origin == process.env.FRONTEND_URL){
+                    return callback(null, true);
+                }else{
+                    return callback(new Error('No permitido por CORS'));
+                }
+            }
+        })
+        );
     }
 
     configSockets() {
