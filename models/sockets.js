@@ -10,6 +10,9 @@ class Sockets {
     socketEvents() {
         //On connection
         this.io.on('connection', (socket) => {
+
+            console.log('Cliente conectado', socket.id);
+
             //Escucha evento: marcadores-activos
             socket.emit('marcadores-activos', this.marcadores.activos);
 
